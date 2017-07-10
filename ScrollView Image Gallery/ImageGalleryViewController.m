@@ -1,14 +1,14 @@
 //
-//  ViewController.m
+//  ImageGalleryViewController.m
 //  ScrollView Image Gallery
 //
 //  Created by Errol Cheong on 2017-07-10.
 //  Copyright © 2017 Errol Cheong. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ImageGalleryViewController.h"
 
-@interface ViewController () <UIScrollViewDelegate>
+@interface ImageGalleryViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView1;
@@ -18,11 +18,13 @@
 
 @end
 
-@implementation ViewController
+@implementation ImageGalleryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.scrollView.delegate = self;
+    
     [self.scrollView.leadingAnchor constraintEqualToAnchor:
      self.view.leadingAnchor].active = YES;
     [self.scrollView.trailingAnchor constraintEqualToAnchor:
@@ -56,6 +58,10 @@
      view3.bottomAnchor].active = YES;
     [view1.trailingAnchor constraintEqualToAnchor:
      view2.leadingAnchor].active = YES;
+    [view1.widthAnchor constraintEqualToAnchor:
+     view3.widthAnchor].active = YES;
+    [view1.heightAnchor constraintEqualToAnchor:
+     view3.heightAnchor].active = YES;
 }
 
 - (void)addCenterView:(UIView*)view1 inView:(UIView*)view3{
@@ -63,6 +69,10 @@
      view3.topAnchor].active = YES;
     [view1.bottomAnchor constraintEqualToAnchor:
      view3.bottomAnchor].active = YES;
+    [view1.widthAnchor constraintEqualToAnchor:
+     view3.widthAnchor].active = YES;
+    [view1.heightAnchor constraintEqualToAnchor:
+     view3.heightAnchor].active = YES;
 }
 
 - (void)addTrailingView:(UIView*)view1 toCenterView:(UIView*)view2 inView:(UIView*)view3{
@@ -74,6 +84,10 @@
      view3.bottomAnchor].active = YES;
     [view1.trailingAnchor constraintEqualToAnchor:
      view3.trailingAnchor].active = YES;
+    [view1.widthAnchor constraintEqualToAnchor:
+     view3.widthAnchor].active = YES;
+    [view1.heightAnchor constraintEqualToAnchor:
+     view3.heightAnchor].active = YES;
     
 }
 

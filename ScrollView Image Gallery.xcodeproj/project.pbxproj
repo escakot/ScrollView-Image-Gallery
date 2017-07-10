@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		D167365E1F142367000FF6DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D167365D1F142367000FF6DA /* main.m */; };
 		D16736611F142367000FF6DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D16736601F142367000FF6DA /* AppDelegate.m */; };
-		D16736641F142367000FF6DA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16736631F142367000FF6DA /* ViewController.m */; };
+		D16736641F142367000FF6DA /* ImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16736631F142367000FF6DA /* ImageGalleryViewController.m */; };
 		D16736671F142367000FF6DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D16736651F142367000FF6DA /* Main.storyboard */; };
 		D16736691F142367000FF6DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D16736681F142367000FF6DA /* Assets.xcassets */; };
 		D167366C1F142367000FF6DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D167366A1F142367000FF6DA /* LaunchScreen.storyboard */; };
+		D16736751F1429DA000FF6DA /* ImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16736741F1429DA000FF6DA /* ImageDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		D167365D1F142367000FF6DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D167365F1F142367000FF6DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D16736601F142367000FF6DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D16736621F142367000FF6DA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D16736631F142367000FF6DA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D16736621F142367000FF6DA /* ImageGalleryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageGalleryViewController.h; sourceTree = "<group>"; };
+		D16736631F142367000FF6DA /* ImageGalleryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageGalleryViewController.m; sourceTree = "<group>"; };
 		D16736661F142367000FF6DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D16736681F142367000FF6DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D167366B1F142367000FF6DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D167366D1F142367000FF6DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D16736731F1429DA000FF6DA /* ImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDetailViewController.h; sourceTree = "<group>"; };
+		D16736741F1429DA000FF6DA /* ImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +61,10 @@
 		D167365B1F142367000FF6DA /* ScrollView Image Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				D16736621F142367000FF6DA /* ViewController.h */,
-				D16736631F142367000FF6DA /* ViewController.m */,
+				D16736621F142367000FF6DA /* ImageGalleryViewController.h */,
+				D16736631F142367000FF6DA /* ImageGalleryViewController.m */,
+				D16736731F1429DA000FF6DA /* ImageDetailViewController.h */,
+				D16736741F1429DA000FF6DA /* ImageDetailViewController.m */,
 				D16736651F142367000FF6DA /* Main.storyboard */,
 				D16736681F142367000FF6DA /* Assets.xcassets */,
 				D167365C1F142367000FF6DA /* Supporting Files */,
@@ -150,9 +155,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D16736641F142367000FF6DA /* ViewController.m in Sources */,
+				D16736641F142367000FF6DA /* ImageGalleryViewController.m in Sources */,
 				D16736611F142367000FF6DA /* AppDelegate.m in Sources */,
 				D167365E1F142367000FF6DA /* main.m in Sources */,
+				D16736751F1429DA000FF6DA /* ImageDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +315,7 @@
 				D16736721F142367000FF6DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
