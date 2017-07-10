@@ -58,14 +58,10 @@
 		D167365B1F142367000FF6DA /* ScrollView Image Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				D167365F1F142367000FF6DA /* AppDelegate.h */,
-				D16736601F142367000FF6DA /* AppDelegate.m */,
 				D16736621F142367000FF6DA /* ViewController.h */,
 				D16736631F142367000FF6DA /* ViewController.m */,
 				D16736651F142367000FF6DA /* Main.storyboard */,
 				D16736681F142367000FF6DA /* Assets.xcassets */,
-				D167366A1F142367000FF6DA /* LaunchScreen.storyboard */,
-				D167366D1F142367000FF6DA /* Info.plist */,
 				D167365C1F142367000FF6DA /* Supporting Files */,
 			);
 			path = "ScrollView Image Gallery";
@@ -74,6 +70,10 @@
 		D167365C1F142367000FF6DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D167366A1F142367000FF6DA /* LaunchScreen.storyboard */,
+				D167366D1F142367000FF6DA /* Info.plist */,
+				D167365F1F142367000FF6DA /* AppDelegate.h */,
+				D16736601F142367000FF6DA /* AppDelegate.m */,
 				D167365D1F142367000FF6DA /* main.m */,
 			);
 			name = "Supporting Files";
