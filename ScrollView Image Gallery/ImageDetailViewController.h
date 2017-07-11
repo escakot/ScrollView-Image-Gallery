@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface ImageDetailViewController : UIViewController
+
+@property (strong, nonatomic) UIImage *galleryImage;
 
 @end

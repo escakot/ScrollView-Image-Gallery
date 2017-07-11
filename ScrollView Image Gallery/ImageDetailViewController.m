@@ -7,12 +7,12 @@
 //
 
 #import "ImageDetailViewController.h"
+#import "ImageGalleryViewController.h"
 
 @interface ImageDetailViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
+@property (strong, nonatomic) UIImageView *imageView;
 
 @end
 
@@ -21,34 +21,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.scrollView.delegate = self;
+    self.detailScrollView.delegate = self;
+    self.detailScrollView.backgroundColor = [UIColor whiteColor];
     
-    [self.scrollView.leadingAnchor constraintEqualToAnchor:
-     self.view.leadingAnchor].active = YES;
-    [self.scrollView.trailingAnchor constraintEqualToAnchor:
-     self.view.trailingAnchor].active = YES;
-    [self.scrollView.topAnchor constraintEqualToAnchor:
-     self.view.topAnchor].active = YES;
-    [self.scrollView.bottomAnchor constraintEqualToAnchor:
-     self.view.bottomAnchor].active = YES;
-   
+    self.imageView = [[UIImageView alloc] init];
+    self.imageView.image = self.galleryImage;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.imageView sizeToFit];
+    [self.detailScrollView addSubview:self.imageView];
+    self.detailScrollView.contentSize = self.imageView.bounds.size;
     
-    [self.scrollView addSubview:self.imageView];
-    [self.imageView.leadingAnchor constraintEqualToAnchor:
-     self.scrollView.leadingAnchor];
-    [self.imageView.trailingAnchor constraintEqualToAnchor:
-     self.scrollView.trailingAnchor];
-    [self.imageView.topAnchor constraintEqualToAnchor:
-     self.scrollView.topAnchor];
-    [self.imageView.bottomAnchor constraintEqualToAnchor:
-     self.scrollView.bottomAnchor];
     
-    self.scrollView.maximumZoomScale = 2.0;
-    self.scrollView.minimumZoomScale = 0.2;
-    self.scrollView.zoomScale = 0.5;
+    self.detailScrollView.maximumZoomScale = 2.0;
+    self.detailScrollView.minimumZoomScale = 0.2;
+//    self.detailScrollView.zoomScale = 0.5;
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)detailScrollView{
     return self.imageView;
 }
 
