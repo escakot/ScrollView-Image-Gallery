@@ -30,6 +30,8 @@
     [self.imageView sizeToFit];
     [self.detailScrollView addSubview:self.imageView];
     self.detailScrollView.contentSize = self.imageView.bounds.size;
+    self.imageView.center = CGPointMake(self.imageView.center.x, self.detailScrollView.center.y);
+//    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width , self.imageView.image.size.height);
     
     
     self.detailScrollView.maximumZoomScale = 2.0;

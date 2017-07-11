@@ -13,9 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIPageControl *pageControl;
-@property (strong, nonatomic) UIImageView *imageView1;
-@property (strong, nonatomic) UIImageView *imageView2;
-@property (strong, nonatomic) UIImageView *imageView3;
+@property (strong, nonatomic) NSArray<NSString*>* images;
+@property (strong, nonatomic) NSMutableArray<UIImageView*> *imageViews;
 
 
 
@@ -23,7 +22,19 @@
 
 @implementation ImageGalleryViewController
 
-- (void)viewDidLoad {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _images = @[@"Lighthouse-in-Field",@"Lighthouse-night",@"Lighthouse-zoomed",
+                    @"chicago",@"toronto",@"montreal"];
+        _imageViews = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self setupScrollView];
@@ -37,22 +48,20 @@
 }
 
 
-- (void)setupPagingControl{
+- (void)setupPagingControl
+{
     self.pageControl = [[UIPageControl alloc] init];
-//    self.pageControl.numberOfPages = self.scrollView.subviews.count;
-    self.pageControl.numberOfPages = self.view.subviews.count;
+    self.pageControl.numberOfPages = self.scrollView.subviews.count-2;
     [self.view addSubview:self.pageControl];
     self.pageControl.backgroundColor = [UIColor blackColor];
     self.pageControl.alpha = 0.5;
     [self.pageControl bringSubviewToFront:self.pageControl];
     CGRect frame = CGRectMake(0, self.view.bounds.size.height - 50, self.view.bounds.size.width, 50);
     self.pageControl.frame = frame;
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewNextPage)];
-//    self.pageControl.userInteractionEnabled = YES;
-//    [self.pageControl addGestureRecognizer:tapGesture];
 }
 
-- (void)setupScrollView{
+- (void)setupScrollView
+{
     self.scrollView.delegate = self;
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView.leadingAnchor constraintEqualToAnchor:
@@ -70,26 +79,30 @@
     [self.scrollView addGestureRecognizer:tapGesture];
 }
 
-- (void)setupImageViews{
-    self.imageView1 = [[UIImageView alloc] init];
-    self.imageView1.image = [UIImage imageNamed:@"Lighthouse-in-Field"];
-    self.imageView1.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:self.imageView1];
-    
-    self.imageView2 = [[UIImageView alloc] init];
-    self.imageView2.image = [UIImage imageNamed:@"Lighthouse-night"];
-    self.imageView2.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:self.imageView2];
-    
-    self.imageView3 = [[UIImageView alloc] init];
-    self.imageView3.image = [UIImage imageNamed:@"Lighthouse-zoomed"];
-    self.imageView3.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:self.imageView3];
-    [self addLeadingView:self.imageView1 toCenterView:self.imageView2 inView:self.scrollView];
-    [self addCenterView:self.imageView2 inView:self.scrollView];
-    [self addTrailingView:self.imageView3 toCenterView:self.imageView2 inView:self.scrollView];
+- (void)setupImageViews
+{
+    // Add Image Views based on the number of image strings
+    for (NSString* image in self.images) {
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.image = [UIImage imageNamed:image];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.scrollView addSubview:imageView];
+        [self.imageViews addObject:imageView];
+    }
+    // Add Constraints for each image
+    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop)
+    {
+        if (idx == 0){
+            [self addLeadingView:imageView toCenterView:self.imageViews[idx+1] inView:self.scrollView];
+        } else if (idx == self.imageViews.count - 1){
+            [self addTrailingView:imageView inView:self.scrollView];
+        } else {
+            [self addCenterView:imageView toNextView:self.imageViews[idx+1] inView:self.scrollView];
+        }
+    }];
 }
 
+//Add anchors to first imageView
 - (void)addLeadingView:(UIView*)view1 toCenterView:(UIView*)view2 inView:(UIView*)view3
 {
     [view1.leadingAnchor constraintEqualToAnchor:
@@ -106,8 +119,11 @@
      view3.heightAnchor].active = YES;
 }
 
-- (void)addCenterView:(UIView*)view1 inView:(UIView*)view3
+//Add anchors for views in the middle
+- (void)addCenterView:(UIView*)view1 toNextView:(UIView*)view2 inView:(UIView*)view3
 {
+    [view1.trailingAnchor constraintEqualToAnchor:
+     view2.leadingAnchor].active = YES;
     [view1.topAnchor constraintEqualToAnchor:
      view3.topAnchor].active = YES;
     [view1.bottomAnchor constraintEqualToAnchor:
@@ -118,10 +134,9 @@
      view3.heightAnchor].active = YES;
 }
 
-- (void)addTrailingView:(UIView*)view1 toCenterView:(UIView*)view2 inView:(UIView*)view3
+//Add anchors for last ImageView
+- (void)addTrailingView:(UIView*)view1 inView:(UIView*)view3
 {
-    [view1.leadingAnchor constraintEqualToAnchor:
-     view2.trailingAnchor].active = YES;
     [view1.topAnchor constraintEqualToAnchor:
      view3.topAnchor].active = YES;
     [view1.bottomAnchor constraintEqualToAnchor:
@@ -138,37 +153,26 @@
 - (void)imageViewTapped:(UITapGestureRecognizer*)sender
 {
     [self performSegueWithIdentifier:@"detailViewSegue" sender:sender];
-    NSLog(@"Image was tapped");
+//    NSLog(@"Image was tapped");
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     ImageDetailViewController *dvc = segue.destinationViewController;
     CGPoint location = [sender locationInView:self.scrollView];
-    NSLog(@"%@", NSStringFromCGPoint(location));
     int image = location.x/self.scrollView.frame.size.width;
-    NSLog(@"%i", image);
-    switch (image){
-        case 0:
-            dvc.galleryImage = [UIImage imageNamed:@"Lighthouse-in-Field"];
-            break;
-        case 1:
-            dvc.galleryImage = [UIImage imageNamed:@"Lighthouse-night"];
-            break;
-        case 2:
-            dvc.galleryImage = [UIImage imageNamed:@"Lighthouse-zoomed"];
-            break;
-    }
-    
+    dvc.galleryImage = [UIImage imageNamed:self.images[image]];
 }
 
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSInteger numberOfPages= scrollView.contentSize.width/scrollView.frame.size.width;
-    NSInteger index = scrollView.contentOffset.x/scrollView.contentSize.width*numberOfPages;
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.contentOffset.x/scrollView.contentSize.width*self.pageControl.numberOfPages;
     self.pageControl.currentPage = index;
 }
 
--(void)scrollViewChangePage{
+-(void)scrollViewChangePage
+{
     CGRect frame = self.scrollView.frame;
     frame.origin.x = frame.size.width * self.pageControl.currentPage;
     frame.origin.y = 0;
